@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "shop_system.apps.ShopSystemConfig",
     "rest_framework",
     "drf_yasg",
+    "simple_history",
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = "tylko_project.urls"
@@ -79,8 +81,8 @@ DATABASES = {
         "NAME": os.environ.get("POSTGRES_DB", "postgres"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
-        "HOST": "db",
-        "PORT": 5432,
+        "HOST": os.environ.get('POSTGRES_HOST', 'db'), # To allow github workflow
+        "PORT": os.environ.get('POSTGRES_PORT', 5432),
     }
 }
 

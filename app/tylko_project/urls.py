@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from shop_system.api.views.add_address_to_order_view import AddAddressToOrderView
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("address/", AddAddressToOrderView.as_view(), name="add_address_to_order"),
 ]
