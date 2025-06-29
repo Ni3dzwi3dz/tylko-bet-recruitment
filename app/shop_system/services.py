@@ -3,7 +3,7 @@ from shop_system.exceptions import OrderNotFoundError, ProductNotFoundError, Pro
 
 from typing import Optional
 
-class OrderAddressUpdateService: # TODO think about more meaningful name
+class AddAddressToOrderService: # TODO think about more meaningful name
     
     @staticmethod
     def get_order_if_exists(order_id) -> Order:

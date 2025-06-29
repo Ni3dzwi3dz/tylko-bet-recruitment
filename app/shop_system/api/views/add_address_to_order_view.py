@@ -1,6 +1,6 @@
 from django.views import View
 
-from shop_system.services import OrderAddressUpdateService
+from shop_system.services import AddAddressToOrderService
 from shop_system.serializers import AddAddressToOrderRequestSerializer
 
 
@@ -16,7 +16,7 @@ class AddAddressToOrderView(View):
         data = json.loads(request.body)
         serializer = AddAddressToOrderRequestSerializer(data=data)
 
-        if not serializer.is_valid(): # TODO : handle with response formatter
+        if not serializer.is_valid():
             return JsonResponse({"error": "Missing required fields",
                                  "details": serializer.errors},
                                    status=400)
@@ -26,11 +26,11 @@ class AddAddressToOrderView(View):
         products = serializer.validated_data["products"]
 
         try:
-            order = OrderAddressUpdateService.get_order_if_exists(order_id)
+            order = AddAddressToOrderService.get_order_if_exists(order_id)
 
-            OrderAddressUpdateService.validate_requested_products(products=products, order_id=order.id)
+            AddAddressToOrderService.validate_requested_products(products=products, order_id=order.id)
 
-            new_products = OrderAddressUpdateService.extract_products_from_existing_logistics(products, order_id=order.id)
+            new_products = AddAddressToOrderService.extract_products_from_existing_logistics(products, order_id=order.id)
 
             new_logistic = Logistic.objects.create(
                 order=order,
