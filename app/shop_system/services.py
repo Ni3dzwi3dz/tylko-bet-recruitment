@@ -14,14 +14,14 @@ class AddAddressToOrderService: # TODO think about more meaningful name
     
     @staticmethod
     def validate_requested_products(products, order_id=None) -> None:
-        OrderAddressUpdateService.check_if_all_products_exist_in_order(products, order_id)
+        AddAddressToOrderService.check_if_all_products_exist_in_order(products, order_id)
         
         for product in products:
-            OrderAddressUpdateService.check_if_product_exists_in_database(product)    
+            AddAddressToOrderService.check_if_product_exists_in_database(product)    
 
     @staticmethod
     def check_if_all_products_exist_in_order(products, order_id) -> None:
-        order = OrderAddressUpdateService.get_order_if_exists(order_id)
+        order = AddAddressToOrderService.get_order_if_exists(order_id)
         existing_products = order.products.values_list('id', flat=True)
         
         for product in products:
